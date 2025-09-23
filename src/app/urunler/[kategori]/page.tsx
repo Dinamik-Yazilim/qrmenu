@@ -9,7 +9,7 @@ import { config } from "process";
 import React, { use, useEffect, useState } from "react";
 
 
-export default function Urunler({ params }: { params: Promise<{ kategori: string }> }) {
+export default function Urunler({ params }: { params: Promise<{ kategori: number }> }) {
   const [urunler, setUrunler] = useState<Stok[]>([])
   const [loaded, setLoaded] = useState(false)
   const [siteInfo, setSiteInfo] = useState<SiteInfo>({})
@@ -50,12 +50,12 @@ export default function Urunler({ params }: { params: Promise<{ kategori: string
           <div className="col-span-2 lg:col-span-4">Urun</div>
           <div className="text-end">Fiyat</div>
         </div>
-        {urunler && urunler.map((urun) => (<div key={urun.sto_kod} className="flex flex-col mb-2">
-          <div className="flex justify-center mb-2">
-            {urun.sto_resim_url ? <img className="max-h-[150px]" src={urun.sto_resim_url} alt={urun.sto_isim} /> : <div className="w-full h-[150px] flex justify-center items-center bg-gray-200 text-gray-500">Resim Yok</div>}
-          </div>
-          <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 border-b border-gray-300 mb-2 pb-2">
-            <div className="col-span-2 lg:col-span-4">{urun.sto_isim}</div>
+        {urunler && urunler.map((urun) => (<div key={urun.StokKodu} className="flex flex-col mb-6">
+          {/* <div className="flex justify-center mb-2">
+            {urun.resimUrl ? <img className="max-h-[150px]" src={urun.resimUrl} alt={urun.StokIsmi} /> : <div className="w-full h-[150px] flex justify-center items-center bg-gray-200 text-gray-500">Resim Yok</div>}
+          </div> */}
+          <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 border-b border-gray-300 mb-2 pb-2 text-blue-300">
+            <div className="col-span-2 lg:col-span-4">{urun.StokIsmi}</div>
             <div className="text-end">{urun.fiyat?.toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })} TL</div>
           </div>
         </div>

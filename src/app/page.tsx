@@ -44,9 +44,9 @@ export default function Home() {
       <Header siteInfo={siteInfo} />
       <ul>
         {categories && categories.map((category) => (
-          <li key={category.ktg_kod}>
-            <Link href={`/urunler/${category.ktg_kod}`}>
-            {category.ktg_isim} ({category.ktg_kod})
+          <li key={category.KategoriID} className="my-6">
+            <Link href={`/urunler/${category.KategoriID}`} className="capitalize text-3xl">
+            {category.KategoriAdi} ({category.KategoriKodu})
             </Link>
           </li>
         ))}

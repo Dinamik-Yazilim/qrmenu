@@ -29,15 +29,28 @@ export async function GET(request: Request) {
             trustServerCertificate: true
           }
         },
+  //       query: `SELECT * FROM (
+  // SELECT K.KategoriID, K.KategoriKodu, K.KategoriAdi,  S.StokKodu, S.StokIsmi,
+  // ISNULL((SELECT TOP 1  SatisFiyati FROM SATIS_FIYATLARI WHERE Fk_StokID=S.StokID AND ListeSiraNo=1),0) as fiyat,
+  // CASE WHEN S.UrunResmi IS NULL THEN
+  // 'https://www.thefuzzyduck.co.uk/wp-content/uploads/2024/05/image-coming-soon-placeholder-01-660x660.png'
+  // ELSE Base64_Encode(S.UrunResmi) END
+  // as resimUrl
+  // FROM KATEGORILER K INNER JOIN
+  // STOK_KARTLARI S ON S.Fk_KategoriID=K.KategoriID
+  // WHERE S.SatisDursun=0 AND K.KategoriID=${kategori}
+  // ) X
+  // ORDER BY X.KategoriKodu,X.StokIsmi
+  // `
         query: `SELECT * FROM (
-  SELECT K.ktg_kod, K.ktg_isim, S.sto_kod, S.sto_isim, S.sto_yabanci_isim,
-  ISNULL((SELECT TOP 1  sfiyat_fiyati FROM STOK_SATIS_FIYAT_LISTELERI WHERE sfiyat_stokkod=S.sto_kod AND sfiyat_deposirano=0 and sfiyat_listesirano=1),0) as fiyat,
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEzIVL9apsvyeObnJbCmWRPy83fgKPRNuXSg&s' as sto_resim_url
-  FROM STOK_KATEGORILERI K INNER JOIN
-  STOKLAR S ON S.sto_kategori_kodu=K.ktg_kod
-  WHERE S.sto_satis_dursun=0 AND K.ktg_kod='${kategori}'
+  SELECT K.KategoriID, K.KategoriKodu, K.KategoriAdi,  S.StokKodu, S.StokIsmi,
+  ISNULL((SELECT TOP 1  SatisFiyati FROM SATIS_FIYATLARI WHERE Fk_StokID=S.StokID AND ListeSiraNo=1),0) as fiyat,
+  '' as resimUrl
+  FROM KATEGORILER K INNER JOIN
+  STOK_KARTLARI S ON S.Fk_KategoriID=K.KategoriID
+  WHERE S.SatisDursun=0 AND K.KategoriID=${kategori}
   ) X
-  ORDER BY X.ktg_kod,X.sto_isim
+  ORDER BY X.KategoriKodu,X.StokIsmi
   `
       })
     })

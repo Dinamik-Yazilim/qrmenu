@@ -17,13 +17,13 @@ export async function GET(request: Request) {
         port: Number(process.env.config_port) || 1433,
         options: {
           encrypt: false,
-          trustedConnection: false,
+         
           trustServerCertificate: true
         }
       },
-      query: `SELECT TOP 30 K.ktg_kod, K.ktg_isim
-FROM STOK_KATEGORILERI K
-ORDER BY K.ktg_kod
+      query: `SELECT TOP 30 KategoriID, KategoriKodu, KategoriAdi
+FROM KATEGORILER 
+ORDER BY KategoriKodu
 `
     })
   })

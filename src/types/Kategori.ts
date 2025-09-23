@@ -1,4 +1,5 @@
 export interface Kategori {
-  ktg_kod: string
-  ktg_isim: string
+  KategoriID?:number
+  KategoriKodu?:string
+  KategoriAdi?:string
 }
